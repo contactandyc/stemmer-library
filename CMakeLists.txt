@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2025 Andy Curtis <contactandyc@gmail.com>
+# SPDX-FileCopyrightText: 2026 Andy Curtis <contactandyc@gmail.com>
 # SPDX-FileCopyrightText: 2024–2025 Knode.ai — technical questions: contact Andy (above)
 # SPDX-License-Identifier: Apache-2.0
 
@@ -44,9 +44,11 @@ endif()
 
 include(GNUInstallDirs)
 
-# ---- Dependencies ----
+# ---- Dependencies (Standard CMake) ----
 find_package(a_memory_library CONFIG REQUIRED)
 find_package(the_macro_library CONFIG REQUIRED)
+
+# ---- Dependencies (PkgConfig Shims) ----
 
 # ── Library variants (ALL are defined & built/installed) ──────────────────────
 add_library(stemmer_library_debug  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
