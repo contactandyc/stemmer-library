@@ -50,8 +50,11 @@ find_package(the_macro_library CONFIG REQUIRED)
 
 # ---- Dependencies (PkgConfig Shims) ----
 
+
 # ── Library variants (ALL are defined & built/installed) ──────────────────────
-add_library(stemmer_library_debug  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
+
+add_library(stemmer_library_debug STATIC
+  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
 
 target_include_directories(stemmer_library_debug PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -85,7 +88,9 @@ install(TARGETS stemmer_library_debug EXPORT stemmer_libraryTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-add_library(stemmer_library_memory  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
+
+add_library(stemmer_library_memory STATIC
+  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
 
 target_include_directories(stemmer_library_memory PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -122,7 +127,9 @@ install(TARGETS stemmer_library_memory EXPORT stemmer_libraryTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-add_library(stemmer_library_static  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
+
+add_library(stemmer_library_static STATIC
+  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
 
 target_include_directories(stemmer_library_static PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -156,7 +163,9 @@ install(TARGETS stemmer_library_static EXPORT stemmer_libraryTargets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-add_library(stemmer_library_shared  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
+
+add_library(stemmer_library_shared SHARED
+  src/api.c  src/libstemmer_utf8.c  src/stem_UTF_8_english.c  src/stem_cache.c  src/stemmer.c  src/utilities.c)
 
 target_include_directories(stemmer_library_shared PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
