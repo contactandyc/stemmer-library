@@ -17,11 +17,24 @@ option(A_ENABLE_COVERAGE "Enable code coverage instrumentation" OFF)
 
 find_library(M_LIB m)
 
-# ---- Test executables ----
-set(TEST_EXECUTABLES "")
-add_executable(test_stemmer  src/test_stemmer.c)
+find_package(a_memory_library CONFIG REQUIRED)
+find_package(the_macro_library CONFIG REQUIRED)
 
-target_include_directories(test_stemmer PRIVATE  ${CMAKE_CURRENT_SOURCE_DIR}/src)
+# Fallback for standalone test builds (when not included via add_subdirectory)
+if(NOT TARGET stemmer_library::stemmer_library)
+  find_package(stemmer_library CONFIG REQUIRED)
+endif()
+
+set(TEST_EXECUTABLES "")
+
+# ---- Targets ----
+add_executable(test_stemmer
+  src/test_stemmer.c
+)
+
+target_include_directories(test_stemmer PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}/../src
+)
 
 list(APPEND TEST_EXECUTABLES test_stemmer)
 
@@ -36,9 +49,8 @@ if("CXX" IN_LIST CMAKE_PROJECT_LANGUAGES)
   )
 endif()
 
-if(NOT TARGET stemmer_library::stemmer_library)
-  find_package(stemmer_library CONFIG REQUIRED)
-endif()
+target_link_libraries(test_stemmer PRIVATE a_memory_library::a_memory_library)
+target_link_libraries(test_stemmer PRIVATE the_macro_library::the_macro_library)
 target_link_libraries(test_stemmer PRIVATE stemmer_library::stemmer_library)
 
 if(M_LIB)
